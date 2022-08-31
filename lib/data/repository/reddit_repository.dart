@@ -8,7 +8,10 @@ class RedditDataRepository {
     final response = await http.get(uri);
 
     final Map<String, dynamic> data = json.decode(response.body);
+
+    // обращение к необходимому элементу массива
     final List children = data["data"]["children"];
+    // обращение к данным из нужного элемента
     final List<Map<String, dynamic>> targetData = children
         .map((item) => ({
               'selftext': item['data']['selftext'],
@@ -18,9 +21,9 @@ class RedditDataRepository {
             }))
         .toList();
 
+    // получение данных списком
     List<Post> posts =
         targetData.map((postData) => Post.fromJson(postData)).toList();
-
     return posts;
   }
 }

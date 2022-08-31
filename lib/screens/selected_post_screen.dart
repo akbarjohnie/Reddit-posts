@@ -9,6 +9,7 @@ class SelectedPost extends StatelessWidget {
     required this.ups,
   }) : super(key: key);
 
+  // данные необходимые по ТЗ
   final title;
   final selfText;
   final ups;
@@ -21,6 +22,8 @@ class SelectedPost extends StatelessWidget {
         centerTitle: true,
       ),
       body: Center(
+        // не во всех постах текст может полностью отображаться
+        // поэтому было необходимо добавить возможность пролистывания
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

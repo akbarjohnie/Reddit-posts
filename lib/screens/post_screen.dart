@@ -15,6 +15,7 @@ class _PostsScreenState extends State<PostsScreen> {
   RedditDataRepository repo = RedditDataRepository();
   Post model = Post();
 
+  // функция отвечающая за обновление данных
   Future<void> _onRefresh() async {
     await Future.delayed(
       const Duration(seconds: 0),
@@ -63,6 +64,7 @@ class _PostsScreenState extends State<PostsScreen> {
   }
 }
 
+// отображение всех постов списком
 class _PostList extends StatelessWidget {
   const _PostList({
     required this.posts,
@@ -88,6 +90,7 @@ class _PostList extends StatelessWidget {
   }
 }
 
+// каждый отдельный элемент из списка постов
 class _PostWidget extends StatelessWidget {
   const _PostWidget({
     required this.post,
@@ -103,6 +106,7 @@ class _PostWidget extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
+              // передача необходимых данных в виджет поста
               builder: (context) => SelectedPost(
                 title: post!.title,
                 selfText: post!.selftext,
@@ -124,7 +128,9 @@ class _PostWidget extends StatelessWidget {
               ),
               Image.network(
                 '${post!.thumbnail}',
-                errorBuilder: (BuildContext? context, Object? exceprion,
+                // чтобы в случае отсутствия изображения
+                // на экране пользователя не отображалась ошибка
+                errorBuilder: (BuildContext? context, Object? exception,
                     StackTrace? stackTrace) {
                   return const Divider(
                     height: 0,

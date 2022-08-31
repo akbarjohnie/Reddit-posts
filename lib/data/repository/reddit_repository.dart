@@ -17,10 +17,9 @@ class RedditDataRepository {
               'title': item['data']['title']
             }))
         .toList();
+
     List<Post> posts =
         targetData.map((postData) => Post.fromJson(postData)).toList();
-
-    // print(posts.data?.children?[1].data?.title);
 
     return posts;
   }

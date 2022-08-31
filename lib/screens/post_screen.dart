@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reddit_posts/data/model/model.dart';
 import 'package:reddit_posts/data/repository/reddit_repository.dart';
+import 'package:reddit_posts/screens/selected_post_screen.dart';
 import 'package:reddit_posts/style/text_style.dart';
 
 class PostsScreen extends StatefulWidget {
@@ -41,7 +42,7 @@ class _PostsScreenState extends State<PostsScreen> {
           future: repo.getData(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              return PostList(
+              return _PostList(
                 posts: snapshot.data,
               );
             } else if (snapshot.connectionState == ConnectionState.waiting) {
@@ -62,9 +63,8 @@ class _PostsScreenState extends State<PostsScreen> {
   }
 }
 
-class PostList extends StatelessWidget {
-  const PostList({
-    super.key,
+class _PostList extends StatelessWidget {
+  const _PostList({
     required this.posts,
   });
   final List<Post>? posts;
@@ -74,7 +74,7 @@ class PostList extends StatelessWidget {
     return ListView.separated(
       itemCount: 25,
       itemBuilder: (BuildContext context, int index) {
-        return PostWidget(
+        return _PostWidget(
           post: posts?[index],
         );
       },
@@ -88,9 +88,8 @@ class PostList extends StatelessWidget {
   }
 }
 
-class PostWidget extends StatelessWidget {
-  const PostWidget({
-    super.key,
+class _PostWidget extends StatelessWidget {
+  const _PostWidget({
     required this.post,
   });
   final Post? post;
@@ -101,7 +100,16 @@ class PostWidget extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       child: ListTile(
         onTap: () {
-          Navigator.of(context).pushNamed('/selected/');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SelectedPost(
+                title: post!.title,
+                selfText: post!.selftext,
+                ups: post!.ups,
+              ),
+            ),
+          );
         },
         title: Container(
           decoration: BoxDecoration(
@@ -125,38 +133,6 @@ class PostWidget extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class SelectedPost extends StatelessWidget {
-  const SelectedPost({
-    Key? key,
-    this.post,
-  }) : super(key: key);
-
-  final Post? post;
-
-  @override
-  Widget build(BuildContext context) {
-    // print(post);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('${post?.title}'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text('${post?.title}'),
-            const SizedBox(height: 30),
-            Text('${post?.selftext}'),
-            Text('${post?.ups}'),
-          ],
         ),
       ),
     );

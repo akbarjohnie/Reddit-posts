@@ -1,3 +1,3 @@
 # reddit_posts
 
-Test task from Finam
+Flutter app with posts from FlutterDev reddit.

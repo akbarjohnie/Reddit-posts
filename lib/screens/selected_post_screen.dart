@@ -7,12 +7,14 @@ class SelectedPost extends StatelessWidget {
     required this.title,
     required this.selfText,
     required this.ups,
+    this.url,
   }) : super(key: key);
 
-  // данные необходимые по ТЗ
-  final title;
-  final selfText;
-  final ups;
+  final dynamic title;
+  final dynamic selfText;
+  final dynamic ups;
+
+  final dynamic url;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,11 @@ class SelectedPost extends StatelessWidget {
               const SizedBox(height: 30),
               Text(
                 'ups: $ups',
+                style: postUps,
+              ),
+              const SizedBox(height: 5),
+              Text(
+                'link: $url',
                 style: postUps,
               ),
             ],

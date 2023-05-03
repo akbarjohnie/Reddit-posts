@@ -23,3 +23,9 @@ const postUps = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.bold,
 );
+
+const postUrl = TextStyle(
+  color: Colors.black,
+  fontSize: 16,
+  fontWeight: FontWeight.w500,
+);

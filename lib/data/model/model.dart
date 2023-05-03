@@ -1,18 +1,20 @@
 // Модель, с помощью которой мы работаем с данными из запроса
 
-class Post {
+class PostModel {
   String? selftext;
   int? ups;
   String? title;
   String? thumbnail;
+  String? url;
 
-  Post({this.selftext, this.ups, this.title, this.thumbnail});
+  PostModel({this.selftext, this.ups, this.title, this.thumbnail});
 
-  Post.fromJson(Map<String, dynamic> json) {
+  PostModel.fromJson(Map<String, dynamic> json) {
     selftext = json['selftext'];
     ups = json['ups'];
     title = json['title'];
     thumbnail = json['thumbnail'];
+    url = json['url'];
   }
 
   Map<String, dynamic> toJson() {
@@ -21,6 +23,7 @@ class Post {
     data['ups'] = ups;
     data['title'] = title;
     data['thumbnail'] = thumbnail;
+    data['url'] = url;
     return data;
   }
 }

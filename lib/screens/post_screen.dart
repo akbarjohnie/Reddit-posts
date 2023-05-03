@@ -12,15 +12,13 @@ class PostsScreen extends StatefulWidget {
 }
 
 class _PostsScreenState extends State<PostsScreen> {
-  RedditDataRepository repo = RedditDataRepository();
-  Post model = Post();
+  RedditDataRepository repository = RedditDataRepository();
 
-  // функция отвечающая за обновление данных
+  // обновление данных
   Future<void> _onRefresh() async {
-    await Future.delayed(
-      const Duration(seconds: 0),
+    await Future(
       () {
-        repo.getData();
+        repository.getData();
         setState(
           () {},
         );
@@ -39,8 +37,8 @@ class _PostsScreenState extends State<PostsScreen> {
         onRefresh: () {
           return _onRefresh();
         },
-        child: FutureBuilder<List<Post>>(
-          future: repo.getData(),
+        child: FutureBuilder<List<PostModel>>(
+          future: repository.getData(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               return _PostList(
@@ -69,7 +67,7 @@ class _PostList extends StatelessWidget {
   const _PostList({
     required this.posts,
   });
-  final List<Post>? posts;
+  final List<PostModel>? posts;
 
   @override
   Widget build(BuildContext context) {
@@ -95,13 +93,19 @@ class _PostWidget extends StatelessWidget {
   const _PostWidget({
     required this.post,
   });
-  final Post? post;
+  final PostModel? post;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.only(
+        right: 10.0,
+        top: 10.0,
+        bottom: 10.0,
+        left: 0.0,
+      ),
       child: ListTile(
+        // leading: const Icon(Icons.reddit_outlined),
         onTap: () {
           Navigator.push(
             context,
@@ -111,13 +115,15 @@ class _PostWidget extends StatelessWidget {
                 title: post!.title,
                 selfText: post!.selftext,
                 ups: post!.ups,
+                url: post?.url,
               ),
             ),
           );
         },
         title: Container(
           decoration: BoxDecoration(
-            border: Border.all(width: 2),
+            border: Border.all(width: 1, color: Colors.grey),
+            // color: Colors.grey,
           ),
           child: Column(
             children: [
@@ -126,6 +132,7 @@ class _PostWidget extends StatelessWidget {
                 style: pview,
                 textAlign: TextAlign.center,
               ),
+              const SizedBox(height: 4),
               Image.network(
                 '${post!.thumbnail}',
                 // чтобы в случае отсутствия изображения
@@ -134,6 +141,7 @@ class _PostWidget extends StatelessWidget {
                     StackTrace? stackTrace) {
                   return const Divider(
                     height: 0,
+                    color: Colors.transparent,
                   );
                 },
               ),

@@ -30,8 +30,20 @@ class _PostsScreenState extends State<PostsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Posts from Reddit'),
+        title: const Text(
+          'Posts from Reddit',
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
         centerTitle: true,
+        leading: IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Icons.settings,
+          ),
+          splashRadius: 20,
+        ),
       ),
       body: RefreshIndicator(
         onRefresh: () {
@@ -40,20 +52,19 @@ class _PostsScreenState extends State<PostsScreen> {
         child: FutureBuilder<List<PostModel>>(
           future: repository.getData(),
           builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return _PostList(
-                posts: snapshot.data,
-              );
-            } else if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Scaffold(
-                body: Center(child: CircularProgressIndicator()),
-              );
-            } else {
-              return const Scaffold(
-                body: Center(
+            switch (snapshot.connectionState) {
+              case ConnectionState.done:
+                return _PostList(
+                  model: snapshot.data,
+                );
+              case ConnectionState.waiting:
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              default:
+                return const Center(
                   child: Text('Something went wrong...'),
-                ),
-              );
+                );
             }
           },
         ),
@@ -65,9 +76,9 @@ class _PostsScreenState extends State<PostsScreen> {
 // отображение всех постов списком
 class _PostList extends StatelessWidget {
   const _PostList({
-    required this.posts,
+    required this.model,
   });
-  final List<PostModel>? posts;
+  final List<PostModel>? model;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +86,7 @@ class _PostList extends StatelessWidget {
       itemCount: 25,
       itemBuilder: (BuildContext context, int index) {
         return _PostWidget(
-          post: posts?[index],
+          post: model?[index],
         );
       },
       separatorBuilder: (BuildContext context, int index) {
@@ -98,12 +109,7 @@ class _PostWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        right: 10.0,
-        top: 10.0,
-        bottom: 10.0,
-        left: 0.0,
-      ),
+      padding: const EdgeInsets.all(5),
       child: ListTile(
         // leading: const Icon(Icons.reddit_outlined),
         onTap: () {
@@ -122,30 +128,34 @@ class _PostWidget extends StatelessWidget {
         },
         title: Container(
           decoration: BoxDecoration(
-            border: Border.all(width: 1, color: Colors.grey),
+            border: Border.all(width: 1, color: Colors.black),
+            borderRadius: BorderRadius.circular(15),
             // color: Colors.grey,
           ),
-          child: Column(
-            children: [
-              Text(
-                '${post!.title}',
-                style: pview,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 4),
-              Image.network(
-                '${post!.thumbnail}',
-                // чтобы в случае отсутствия изображения
-                // на экране пользователя не отображалась ошибка
-                errorBuilder: (BuildContext? context, Object? exception,
-                    StackTrace? stackTrace) {
-                  return const Divider(
-                    height: 0,
-                    color: Colors.transparent,
-                  );
-                },
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(3.0),
+            child: Column(
+              children: [
+                Text(
+                  '${post!.title}',
+                  style: pview,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 4),
+                Image.network(
+                  '${post!.thumbnail}',
+                  // чтобы в случае отсутствия изображения
+                  // на экране пользователя не отображалась ошибка
+                  errorBuilder: (BuildContext? context, Object? exception,
+                      StackTrace? stackTrace) {
+                    return const Divider(
+                      height: 0,
+                      color: Colors.transparent,
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

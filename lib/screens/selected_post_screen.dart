@@ -20,8 +20,19 @@ class SelectedPost extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('$title'),
+        title: Text(
+          '$title',
+          style: const TextStyle(
+            color: Colors.black,
+          ),
+        ),
         centerTitle: true,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new),
+          onPressed: () => Navigator.pop(context),
+          splashRadius: 20,
+        ),
       ),
       body: Center(
         // не во всех постах текст может полностью отображаться
@@ -31,11 +42,11 @@ class SelectedPost extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                '$title',
-                style: postTitle,
-                textAlign: TextAlign.center,
-              ),
+              // Text(
+              //   '$title',
+              //   style: postTitle,
+              //   textAlign: TextAlign.center,
+              // ),
               const SizedBox(height: 30),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -50,10 +61,14 @@ class SelectedPost extends StatelessWidget {
                 'ups: $ups',
                 style: postUps,
               ),
-              const SizedBox(height: 5),
-              Text(
-                'link: $url',
-                style: postUps,
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Text(
+                  'link: $url',
+                  textAlign: TextAlign.center,
+                  style: postUps,
+                ),
               ),
             ],
           ),

@@ -1,3 +1,3 @@
 # reddit_posts
 
-Flutter app with posts from FlutterDev reddit.
+Flutter app - posts from FlutterDev reddit.

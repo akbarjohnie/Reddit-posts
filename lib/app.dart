@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:reddit_posts/screens/post_screen.dart';
+import 'package:reddit_posts/screens/new_posts_screen.dart/post_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -11,16 +11,17 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Reddit FlutterDev',
       theme: ThemeData(
+        useMaterial3: true,
         primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: const Color(0xFFFFFFFF),
         appBarTheme: AppBarTheme(
           elevation: 0,
           backgroundColor: Colors.white,
           iconTheme: const IconThemeData(
-            color: Colors.black,
+            color: Color(0xFF000000),
           ),
           systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
-            statusBarColor: Colors.transparent,
+            statusBarColor: const Color(0x00000000),
           ),
         ),
       ),

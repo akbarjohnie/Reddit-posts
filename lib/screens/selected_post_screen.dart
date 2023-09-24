@@ -7,25 +7,16 @@ class SelectedPost extends StatelessWidget {
     required this.title,
     required this.selfText,
     required this.ups,
-    this.url,
   }) : super(key: key);
 
   final dynamic title;
   final dynamic selfText;
   final dynamic ups;
 
-  final dynamic url;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          '$title',
-          style: const TextStyle(
-            color: Colors.black,
-          ),
-        ),
         centerTitle: true,
         automaticallyImplyLeading: false,
         leading: IconButton(
@@ -62,14 +53,6 @@ class SelectedPost extends StatelessWidget {
                 style: postUps,
               ),
               const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Text(
-                  'link: $url',
-                  textAlign: TextAlign.center,
-                  style: postUps,
-                ),
-              ),
             ],
           ),
         ),

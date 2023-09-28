@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:reddit_posts/screens/new_posts_screen.dart/post_screen.dart';
+import 'package:reddit_posts/screens/new_posts_screen/post_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const PostsScreen(),
+      home: const NewPostsPage(),
     );
   }
 }

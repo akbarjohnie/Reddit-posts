@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:reddit_posts/style/text_style.dart';
+import 'package:reddit_posts/constants/style/text_style.dart';
 
-class SelectedPost extends StatelessWidget {
-  const SelectedPost({
+@RoutePage()
+class SelectedPostPage extends StatelessWidget {
+  const SelectedPostPage({
     Key? key,
     required this.title,
     required this.selfText,

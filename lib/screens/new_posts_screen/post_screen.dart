@@ -1,20 +1,22 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reddit_posts/data/api/new_posts_flutter_dev_api.dart';
 import 'package:reddit_posts/data/model/json_model/reddit_json_model.dart';
-import 'package:reddit_posts/screens/new_posts_screen.dart/widgets/posts_list_widget.dart';
+import 'package:reddit_posts/screens/new_posts_screen/widgets/posts_list_widget.dart';
 
-class PostsScreen extends StatefulWidget {
-  const PostsScreen({Key? key}) : super(key: key);
+@RoutePage()
+class NewPostsPage extends StatefulWidget {
+  const NewPostsPage({Key? key}) : super(key: key);
 
   @override
-  State<PostsScreen> createState() => _PostsScreenState();
+  State<NewPostsPage> createState() => _NewPostsPageState();
 }
 
-class _PostsScreenState extends State<PostsScreen> {
+class _NewPostsPageState extends State<NewPostsPage> {
   NewFlutterPostsApi get api => context.read();
 
-  Future<RedditJson> getData() {
+  Future<RedditJson> _getData() async {
     try {
       var data = api.getPosts();
       return data;
@@ -22,9 +24,13 @@ class _PostsScreenState extends State<PostsScreen> {
       debugPrint(e.toString());
       debugPrint(stackTrace.toString());
 
-      // TODO: переделать
-      rethrow;
+      // TODO: поискать информацию на счёт того, стоит ли так делать
+      // await Future.delayed(const Duration(seconds: 5), () {
+      //   throw getData();
+      // });
     }
+    // TODO: стоит ли так делать
+    return const RedditJson();
   }
 
   // обновление данных
@@ -33,7 +39,7 @@ class _PostsScreenState extends State<PostsScreen> {
       () {
         setState(
           () {
-            getData();
+            _getData();
           },
         );
       },
@@ -64,11 +70,11 @@ class _PostsScreenState extends State<PostsScreen> {
           return _onRefresh();
         },
         child: FutureBuilder<RedditJson>(
-          future: getData(),
+          future: _getData(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.done:
-                return PostList(
+                return PostListWidget(
                   model: snapshot.data!.data!.children,
                 );
               case ConnectionState.waiting:

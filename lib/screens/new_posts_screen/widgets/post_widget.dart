@@ -1,14 +1,17 @@
 // каждый отдельный элемент из списка постов
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:reddit_posts/data/model/post_model/post_model.dart';
-import 'package:reddit_posts/screens/selected_post_screen.dart';
-import 'package:reddit_posts/style/text_style.dart';
+import 'package:reddit_posts/constants/style/text_style.dart';
+import 'package:reddit_posts/screens/selected_post_screen/selected_post_screen.dart';
 
-class PostWidget extends StatelessWidget {
-  const PostWidget({
+@RoutePage()
+class PostWidgetPage extends StatelessWidget {
+  const PostWidgetPage({
     super.key,
     required this.post,
   });
+
   final RedditPostDataModel? post;
 
   @override
@@ -18,11 +21,21 @@ class PostWidget extends StatelessWidget {
       child: ListTile(
         // leading: const Icon(Icons.reddit_outlined),
         onTap: () {
+          //TODO: fix routing issue
+
+          // context.router.push(
+          //   SelectedPostRoute(
+          //     title: post!.title,
+          //     selfText: post!.selftext,
+          //     ups: post!.ups,
+          //   ),
+          // );
+
           Navigator.push(
             context,
             MaterialPageRoute(
               // передача необходимых данных в виджет поста
-              builder: (context) => SelectedPost(
+              builder: (context) => SelectedPostPage(
                 title: post!.title,
                 selfText: post!.selftext,
                 ups: post!.ups,

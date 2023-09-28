@@ -1,10 +1,10 @@
 // отображение всех постов списком
 import 'package:flutter/material.dart';
 import 'package:reddit_posts/data/model/children_model/children_model.dart';
-import 'package:reddit_posts/screens/new_posts_screen.dart/widgets/post_widget.dart';
+import 'package:reddit_posts/screens/new_posts_screen/widgets/post_widget.dart';
 
-class PostList extends StatelessWidget {
-  const PostList({
+class PostListWidget extends StatelessWidget {
+  const PostListWidget({
     super.key,
     required this.model,
   });
@@ -15,7 +15,7 @@ class PostList extends StatelessWidget {
     return ListView.separated(
       itemCount: 25,
       itemBuilder: (BuildContext context, int index) {
-        return PostWidget(
+        return PostWidgetPage(
           post: model?[index].data,
         );
       },

@@ -23,7 +23,6 @@ class _NewPostsPageState extends State<NewPostsPage> {
     } catch (e, stackTrace) {
       debugPrint(e.toString());
       debugPrint(stackTrace.toString());
-
       // TODO: поискать информацию на счёт того, стоит ли так делать
       // await Future.delayed(const Duration(seconds: 5), () {
       //   throw getData();
@@ -74,7 +73,7 @@ class _NewPostsPageState extends State<NewPostsPage> {
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.done:
-                return PostListWidget(
+                return PostListWidgetPage(
                   model: snapshot.data!.data!.children,
                 );
               case ConnectionState.waiting:

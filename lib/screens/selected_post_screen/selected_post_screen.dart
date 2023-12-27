@@ -30,6 +30,7 @@ class SelectedPostPage extends StatelessWidget {
       body: Center(
         // не во всех постах текст может полностью отображаться
         // поэтому было необходимо добавить возможность пролистывания
+        // нужно заменить SCSV
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

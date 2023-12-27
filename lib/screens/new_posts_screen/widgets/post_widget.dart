@@ -1,5 +1,6 @@
 // каждый отдельный элемент из списка постов
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:reddit_posts/data/model/post_model/post_model.dart';
 import 'package:reddit_posts/constants/style/text_style.dart';
@@ -30,10 +31,9 @@ class PostWidgetPage extends StatelessWidget {
           //     ups: post!.ups,
           //   ),
           // );
-
           Navigator.push(
             context,
-            MaterialPageRoute(
+            CupertinoPageRoute(
               // передача необходимых данных в виджет поста
               builder: (context) => SelectedPostPage(
                 title: post!.title,
@@ -63,12 +63,8 @@ class PostWidgetPage extends StatelessWidget {
                   '${post!.thumbnail}',
                   // чтобы в случае отсутствия изображения
                   // на экране пользователя не отображалась ошибка
-                  errorBuilder: (BuildContext? context, Object? exception,
-                      StackTrace? stackTrace) {
-                    return const Divider(
-                      height: 0,
-                      color: Colors.transparent,
-                    );
+                  errorBuilder: (_, __, ___) {
+                    return const SizedBox.shrink();
                   },
                 ),
               ],

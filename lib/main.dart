@@ -4,7 +4,7 @@ import 'package:reddit_posts/config/app_dependencies.dart';
 
 void main() {
   runApp(
-    const AppDependenciesWidget(
+    AppDependenciesWidget(
       child: MyApp(),
     ),
   );

@@ -21,6 +21,16 @@ abstract class _$AppNavigation extends RootStackRouter {
         child: const NewPostsPage(),
       );
     },
+    PostListWidgetRoute.name: (routeData) {
+      final args = routeData.argsAs<PostListWidgetRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: PostListWidgetPage(
+          key: args.key,
+          model: args.model,
+        ),
+      );
+    },
     PostWidgetRoute.name: (routeData) {
       final args = routeData.argsAs<PostWidgetRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -58,6 +68,44 @@ class NewPostsRoute extends PageRouteInfo<void> {
   static const String name = 'NewPostsRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [PostListWidgetPage]
+class PostListWidgetRoute extends PageRouteInfo<PostListWidgetRouteArgs> {
+  PostListWidgetRoute({
+    Key? key,
+    required List<RedditChildren>? model,
+    List<PageRouteInfo>? children,
+  }) : super(
+          PostListWidgetRoute.name,
+          args: PostListWidgetRouteArgs(
+            key: key,
+            model: model,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'PostListWidgetRoute';
+
+  static const PageInfo<PostListWidgetRouteArgs> page =
+      PageInfo<PostListWidgetRouteArgs>(name);
+}
+
+class PostListWidgetRouteArgs {
+  const PostListWidgetRouteArgs({
+    this.key,
+    required this.model,
+  });
+
+  final Key? key;
+
+  final List<RedditChildren>? model;
+
+  @override
+  String toString() {
+    return 'PostListWidgetRouteArgs{key: $key, model: $model}';
+  }
 }
 
 /// generated route for
